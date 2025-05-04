@@ -12,10 +12,9 @@ exports.createPost = async (post) => {
     return data.rows[0];
 };
 
-exports.getPosts = async (post, n) => {
+exports.getPosts = async (post) => {
     const data = await db.query(
-        "SELECT * FROM posts LIMIT $1",
-        [n]
+        "SELECT * FROM posts ORDER BY created_at DESC",
     );
     return data.rows;
 };

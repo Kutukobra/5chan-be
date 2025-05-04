@@ -1,7 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS creators (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-    name text DEFAULT NULL,
+    name text DEFAULT NULL UNIQUE,
     password text DEFAULT NULL
 );
 
@@ -11,12 +11,13 @@ CREATE TABLE IF NOT EXISTS posts (
     image_url text,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     creator_id UUID REFERENCES creators(id),
-    parent_id UUID REFERENCES posts(id)
+    parent_id UUID
 );
 
 -- Create Creator
 INSERT INTO creators (name, password)
-VALUES ($1, $2);
+VALUES ($1, $2)
+RETURNING *;
 
 -- Create Post
 INSERT INTO posts (content, image_url, creator_id, parent_id)
@@ -24,7 +25,7 @@ VALUES ($1, $2, $3, $4)
 RETURNING *;
 
 -- Get n Posts
-SELECT * FROM posts LIMIT $1;
+SELECT * FROM posts;
 
 -- Delete Post
 DELETE FROM posts 

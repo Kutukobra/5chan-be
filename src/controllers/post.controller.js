@@ -2,6 +2,23 @@ const postRepository = require('../repositories/post.repository');
 const baseResponse = require('../utils/baseResponse.util');
 
 exports.createPost = async (req, res) => {
+    if (!req.body.content && !req.file) {
+        return baseResponse(
+            res,
+            false,
+            400,
+            "Empty post error."
+        )
+    }
+
+    if (!req.body.parent_id) {
+        req.body.parent_id = "00000000-0000-0000-0000-000000000000";
+    }
+
+    if (!req.body.creator_id) {
+        req.body.creator_id = "00000000-0000-0000-0000-000000000000";
+    }
+
     try {
         const post = await postRepository.createPost({...req.body, ...req.file});
         baseResponse (
@@ -16,14 +33,58 @@ exports.createPost = async (req, res) => {
             res,
             true,
             500,
-            error.meassage || "Failed to create post.",
-            post
+            error.message || "Failed to create post."
         );
     }
 };
 
 exports.getPosts = async (req, res) => {
     try {
-        const posts = await 
+        const posts = await postRepository.getPosts();
+        baseResponse(
+            res,
+            true,
+            200,
+            "Get all posts.",
+            posts
+        )
+    } catch (error) {
+        baseResponse (
+            res,
+            true,
+            500,
+            error.message || "Failed to get posts.",
+            post
+        );
+    }
+}
+
+exports.deletePost = async (req, res) => {
+    if (!req.query.id || !req.query.creator_id) {
+        return baseResponse(
+            res,
+            false,
+            400,
+            "Missing post id or creator id."
+        )
+    }
+
+    try {
+        const post = await postRepository.deletePost(req.query.id, req.query.creator_id);
+        baseResponse(
+            res,
+            true,
+            200,
+            "Post deleted.",
+            post
+        )
+    } catch (error) {
+        baseResponse (
+            res,
+            true,
+            500,
+            error.message || "Failed to delete post.",
+            post
+        );
     }
 }
