@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/creator', require('./src/routes/creator.route'));
+app.use('/post', require('./src/routes/post.route'));
 
 app.listen(
     PORT,

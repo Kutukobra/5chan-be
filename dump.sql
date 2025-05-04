@@ -20,7 +20,8 @@ VALUES ($1, $2);
 
 -- Create Post
 INSERT INTO posts (content, image_url, creator_id, parent_id)
-VALUES ($1, $2, $3, $4);
+VALUES ($1, $2, $3, $4)
+RETURNING *;
 
 -- Get n Posts
 SELECT * FROM posts LIMIT $1;
@@ -29,4 +30,5 @@ SELECT * FROM posts LIMIT $1;
 DELETE FROM posts 
 WHERE
     id = $1 AND 
-    creator_id = $2;
+    creator_id = $2 
+RETURNING *;
