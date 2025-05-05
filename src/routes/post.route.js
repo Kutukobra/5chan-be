@@ -30,7 +30,7 @@ const limiter = rateLimit({
 
 const upload = multer({storage});
 
-router.post('/create', limiter, upload.single('file'), postController.createPost);
+router.post('/new', limiter, upload.single('file'), postController.createPost);
 
 router.get('/', postController.getPosts);
 

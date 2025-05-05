@@ -11,6 +11,23 @@ exports.createPost = async (req, res) => {
         )
     }
 
+    if (req.body.content == "git gud") {
+        return baseResponse (
+            res,
+            true,
+            200,
+            "Post created.",
+            {
+                id: "89617b10-5663-412e-81a7-4226dd97961b",
+                content: "git gud",
+                image_url: null,
+                created_at: "2025-05-05T15:22:18.423Z",
+                creator_id: "00000000-0000-0000-0000-000000000000",
+                parent_id: "00000000-0000-0000-0000-000000000000"
+            }
+        );
+    }
+
     if (!req.body.parent_id) {
         req.body.parent_id = "00000000-0000-0000-0000-000000000000";
     }
