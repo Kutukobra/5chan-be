@@ -6,10 +6,10 @@ const PORT = process.env.PORT || 3000;
 
 
 var corsOptions = {
-    origin: ["http://localhost:5173","https://5chan-be.vercel.app", "5chan-es10oksjd-kutukobras-projects.vercel.app"],
+    origin: ["http://localhost:5173","https://5chan-be.vercel.app"],
 }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use(express.json());
 
