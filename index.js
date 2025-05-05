@@ -9,7 +9,7 @@ var corsOptions = {
     origin: ["http://localhost:5173","https://5chan-be.vercel.app"],
 }
 
-// app.use(cors(corsOptions));
+app.use(cors());  
 
 app.use(express.json());
 
