@@ -1,17 +1,13 @@
 const express = require('express');
 require('dotenv').config();
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 
-
-var corsOptions = {
-    origin: ["http://localhost:5173","https://5chan-be.vercel.app"],
-}
-
-app.use(cors());  
+const app = express();
 
 app.use(express.json());
+
+app.use(cors());  
 
 app.get('/', (req, res) => {
     res.sendStatus(200);
