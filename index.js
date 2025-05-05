@@ -6,11 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 const cors = require('cors');
 
-app.use(cors({
-    origin: ['https://5chan-chi.vercel.app/', 'http://localhost:5173'], 
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
+app.use(cors());
 
 app.use(express.json());
 
