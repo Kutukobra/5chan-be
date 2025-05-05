@@ -12,9 +12,17 @@ exports.createPost = async (post) => {
     return data.rows[0];
 };
 
-exports.getPosts = async (post) => {
+exports.getPosts = async () => {
     const data = await db.query(
-        "SELECT * FROM posts ORDER BY created_at DESC",
+        "SELECT * FROM posts WHERE parent_id = '00000000-0000-0000-0000-000000000000' ORDER BY created_at DESC",
+    );
+    return data.rows;
+};
+
+exports.getReplies = async (id) => {
+    const data = await db.query(
+        "SELECT * FROM posts WHERE parent_id = $1 ORDER BY created_at ASC",
+        [id]
     );
     return data.rows;
 };

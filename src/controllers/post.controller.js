@@ -53,8 +53,27 @@ exports.getPosts = async (req, res) => {
             res,
             true,
             500,
-            error.message || "Failed to get posts.",
-            post
+            error.message || "Failed to get posts."
+        );
+    }
+}
+
+exports.getReplies = async (req, res) => {
+    try {
+        const replies = await postRepository.getReplies(req.params.id);
+        baseResponse(
+            res,
+            true,
+            200,
+            "Get all replies.",
+            replies
+        )
+    } catch (error) {
+        baseResponse (
+            res,
+            true,
+            500,
+            error.message || "Failed to get replies."
         );
     }
 }

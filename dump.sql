@@ -25,7 +25,10 @@ VALUES ($1, $2, $3, $4)
 RETURNING *;
 
 -- Get n Posts
-SELECT * FROM posts;
+SELECT * FROM posts WHERE id = 00000000-0000-0000-0000-000000000000;
+
+-- Get n Replies
+SELECT * FROM posts WHERE parent_id = $1;
 
 -- Delete Post
 DELETE FROM posts 
