@@ -5,9 +5,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-const cors = require('cors');
+var corsOptions = {
+    origin: ["http://localhost:5173","https://5chan-be.vercel.app"],
+    optionsSuccessStatus: 200 // For legacy browser support
+}
 
-app.use(cors());
+app.use(cors(corsOptions));;
 
 app.use(express.json());
 
