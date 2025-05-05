@@ -20,7 +20,7 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({storage});
 
-// router.post('/create', upload.single('file'), postController.createPost);
+router.post('/create', upload.single('file'), postController.createPost);
 
 router.get('/', postController.getPosts);
 
