@@ -6,6 +6,10 @@ const PORT = process.env.PORT || 3000;
 
 const rateLimit = require('express-rate-limit');
 
+const cors = require('cors');
+
+app.use(cors());
+
 const limiter = rateLimit({
 	windowMs: 10 * 60 * 1000,
 	limit: 10, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
@@ -16,10 +20,6 @@ const limiter = rateLimit({
 
 // Apply the rate limiting middleware to all requests.
 app.use(limiter)
-
-const cors = require('cors');
-
-app.use(cors());
 
 app.use(express.json());
 
