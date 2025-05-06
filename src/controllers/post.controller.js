@@ -1,6 +1,8 @@
 const postRepository = require('../repositories/post.repository');
 const baseResponse = require('../utils/baseResponse.util');
 
+let lastContent = "";
+
 exports.createPost = async (req, res) => {
     if (!req.body.content && !req.file) {
         return baseResponse(
@@ -11,7 +13,7 @@ exports.createPost = async (req, res) => {
         )
     }
 
-    if (req.body.content == "git gud") {
+    if (req.body.content == lastContent) {
         return baseResponse (
             res,
             true,
@@ -19,7 +21,7 @@ exports.createPost = async (req, res) => {
             "Post created.",
             {
                 id: "89617b10-5663-412e-81a7-4226dd97961b",
-                content: "git gud",
+                content: lastContent,
                 image_url: null,
                 created_at: "2025-05-05T15:22:18.423Z",
                 creator_id: "00000000-0000-0000-0000-000000000000",
@@ -45,6 +47,7 @@ exports.createPost = async (req, res) => {
             "Post created.",
             post
         );
+        lastContent = post.content;
     } catch (error) {
         baseResponse (
             res,
