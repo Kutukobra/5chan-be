@@ -36,6 +36,6 @@ router.get('/', postController.getPosts);
 
 router.get('/:id', postController.getReplies);
 
-router.delete('/', postController.getPosts);
+// router.delete('/', postController.getPosts);
 
 module.exports = router;
