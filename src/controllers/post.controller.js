@@ -4,6 +4,7 @@ const baseResponse = require('../utils/baseResponse.util');
 let lastContent = "";
 
 exports.createPost = async (req, res) => {
+    console.log(lastContent);
     if (!req.body.content && !req.file) {
         return baseResponse(
             res,
