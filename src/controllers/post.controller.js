@@ -13,7 +13,7 @@ exports.createPost = async (req, res) => {
         )
     }
 
-    if (req.body.content == lastContent) {
+    if ((!req.body.content || req.body.content == "") && req.body.content == lastContent) {
         return baseResponse (
             res,
             true,
