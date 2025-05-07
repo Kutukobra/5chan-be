@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'sbd',
-        allowed_formats: ['jpg', 'png', 'jpeg']
+        allowed_formats: ['jpg', 'png', 'jpeg', 'gif', 'svg']
     }
 });
 
