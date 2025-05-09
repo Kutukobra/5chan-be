@@ -24,12 +24,16 @@ app.get('/', (req, res) => {
 });
 
 const SITE_SECRET = process.env.RECAPTCHA_SECRET_KEY;
-app.post('/verify', async (request, response) => {
-    const { captchaValue } = request.body
+app.post('/verify', async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Replace '*' with your actual domain for security
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    const { captchaValue } = req.body
     const { data } = await axios.post(
         `https://www.google.com/recaptcha/api/siteverify?secret=${SITE_SECRET}&response=${captchaValue}`,
     )
-    response.send(data)
+    res.send(data)
 })
 
 app.use('/creator', require('./src/routes/creator.route'));
