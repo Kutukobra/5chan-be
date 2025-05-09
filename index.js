@@ -3,21 +3,24 @@ require('dotenv').config();
 
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
 const PORT = process.env.PORT || 3000;
-
 const app = express();
+
+const axios = require('axios');
 
 
 app.use(express.json());
 
-app.use(cors());  
+app.use(cors({
+    origin: '*', // e.g., https://5chan.vercel.app
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+}));
+
+app.options("*", cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// const Recaptcha = require('express-recaptcha').RecaptchaV3;
-// const recaptcha = new Recaptcha(process.env.RECAPTCHA_SITE_KEY, process.env.RECAPTCHA_SECRET_KEY);
 
 app.get('/', (req, res) => {
     res.sendStatus(200);
@@ -25,10 +28,6 @@ app.get('/', (req, res) => {
 
 const SITE_SECRET = process.env.RECAPTCHA_SECRET_KEY;
 app.post('/verify', async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Replace '*' with your actual domain for security
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
     const { captchaValue } = req.body
     const { data } = await axios.post(
         `https://www.google.com/recaptcha/api/siteverify?secret=${SITE_SECRET}&response=${captchaValue}`,
